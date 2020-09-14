@@ -5,7 +5,7 @@ public class Planet {
     public double yyVel;   // Its current velocity in the y direction
     public double mass;    // Its mass
     public String imgFileName; //The name of the file that corresponds to the image that depicts the body
-    public static double G = 6.67E-11;   //gravitational constant
+    private static double G = 6.67E-11;   //gravitational constant
     /** First constructer */
     public Planet(double xP, double yP, double xV, double yV, double m, String img) {
         xxPos = xP;
@@ -78,5 +78,9 @@ public class Planet {
         yyVel += yA * dt;
         xxPos += xxVel * dt;
         yyPos += yyVel * dt;
+    }
+
+    public void draw() {
+        StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
     }
 }

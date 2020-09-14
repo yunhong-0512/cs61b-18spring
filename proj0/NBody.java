@@ -37,7 +37,7 @@ public class NBody {
         //draw the background
         String imageToDraw = "images/starfield.jpg";
         StdDraw.enableDoubleBuffering();
-        int scale = 100; //Sets up the universe
+        double scale = radius; //Sets up the universe
         StdDraw.setScale(-1 * scale, scale);
         StdDraw.clear();
 
@@ -58,7 +58,7 @@ public class NBody {
             for (int i = 0; i < bodies.length; i++) {
                 // update each body’s position, velocity, and acceleration
                 bodies[i].update(dt, xForces[i], yForces[i]);
-                StdDraw.picture(bodies[i].xxPos / radius * scale, bodies[i].yyPos / radius * scale, "images/" + bodies[i].imgFileName);
+                bodies[i].draw();
             }
             // Show the offscreen buffer
             StdDraw.show();
