@@ -85,7 +85,9 @@ public class LinkedListDeque<T> {
      * If no such item exists, returns null.
      */
     public T removeFirst() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         T removeItem = (T) sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.prev = sentinel;
@@ -98,7 +100,9 @@ public class LinkedListDeque<T> {
      * If no such item exists, returns null.
      */
     public T removeLast() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         T removeItem = (T) sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
@@ -110,7 +114,9 @@ public class LinkedListDeque<T> {
      * Gets the item at the given index.
      */
     public T get(int index) {
-        if (index > size) return null;
+        if (index > size) {
+            return null;
+        }
         Node ptr = new Node(null, null, sentinel.next);
         for (int i = 0; i < index; i++) {
             ptr.next = ptr.next.next;
@@ -122,15 +128,19 @@ public class LinkedListDeque<T> {
      * Gets the item at the given index using recursion.
      */
     public T getRecursive(int index) {
-        if (index > size) return null;
+        if (index > size) {
+            return null;
+        }
         Node ptr = new Node(null, null, sentinel.next.next);
         return recursiveHelper(index, ptr);
     }
 
     private T recursiveHelper(int index, Node ptr) {
-        if (index == 0) return (T) ptr.next.item;
+        if (index == 0) {
+            return (T) ptr.next.item;
+        }
         ptr.next = ptr.next.next;
-        return recursiveHelper(index-1, ptr);
+        return recursiveHelper(index - 1, ptr);
     }
 
 }

@@ -102,53 +102,22 @@ public class ArrayDeque<T> {
 
         int oldStart = (nextFirst + 1) % items.length;
         int end = (nextLast - 1) % items.length;
-        int newFirst = capacity- (items.length - nextFirst);
+        int newFirst = capacity - (items.length - nextFirst);
         int newStart = (newFirst + 1) % capacity;
 
         if (oldStart < end) {
-            System.arraycopy(items, oldStart , arr, oldStart, size);
+            System.arraycopy(items, oldStart, arr, oldStart, size);
         } else if (oldStart == 0) {
-            System.arraycopy(items, oldStart , arr, oldStart, size);
+            System.arraycopy(items, oldStart, arr, oldStart, size);
             nextFirst = newFirst;
         } else {
-            System.arraycopy(items, oldStart , arr, newStart, size - end - 1);
-            System.arraycopy(items, 0 , arr, 0, end + 1);
+            System.arraycopy(items, oldStart, arr, newStart, size - end - 1);
+            System.arraycopy(items, 0, arr, 0, end + 1);
             nextFirst = newFirst;
         }
 
         items = arr;
     }
 
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
-        a.addFirst(5);
-        a.addLast(6);
-        a.addFirst(4);
-        a.addFirst(3);
-        a.addFirst(2);
-        a.addFirst(1);
-        a.addLast(7);
-        a.addLast(8);
-        a.addLast(8);
-        a.addLast(8);
-        a.printDeque();
-        a.removeLast();
-        a.removeFirst();
-        a.removeFirst();
-        a.removeFirst();
-        System.out.println();
-        a.printDeque();
-        a.removeLast();
-        a.removeLast();
-        System.out.println();
-        a.printDeque();
-        a.removeLast();
-        System.out.println();
-        a.printDeque();
-        a.removeLast();
-        System.out.println();
-        a.printDeque();
-    }
 
 }
