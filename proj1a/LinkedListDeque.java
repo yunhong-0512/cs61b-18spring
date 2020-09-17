@@ -131,7 +131,7 @@ public class LinkedListDeque<T> {
         if (index > size) {
             return null;
         }
-        Node ptr = new Node(null, null, sentinel.next.next);
+        Node ptr = new Node(null, null, sentinel.next);
         return recursiveHelper(index, ptr);
     }
 
@@ -142,5 +142,6 @@ public class LinkedListDeque<T> {
         ptr.next = ptr.next.next;
         return recursiveHelper(index - 1, ptr);
     }
+
 
 }

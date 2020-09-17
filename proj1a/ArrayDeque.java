@@ -66,6 +66,9 @@ public class ArrayDeque<T> {
      * If no such item exists, returns null.
      */
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         if (size * 100 / items.length < 25) {
             resize(items.length / 2);
         }
@@ -79,9 +82,13 @@ public class ArrayDeque<T> {
      * If no such item exists, returns null.
      */
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         if (size * 100 / items.length < 25) {
             resize(items.length / 2);
         }
+
         size -= 1;
         nextLast = (nextLast - 1 + items.length) % items.length;
         return items[nextLast];
@@ -99,25 +106,22 @@ public class ArrayDeque<T> {
      */
     private void resize(int capacity) {
         T[] arr = (T[]) new Object[capacity];
+        int start = (nextFirst + 1) % items.length;
+        if (capacity > items.length) {
+            System.arraycopy(items, start, arr, 1, size - start);
+            System.arraycopy(items, 0, arr, 1 + size - start, start);
 
-        int oldStart = (nextFirst + 1) % items.length;
-        int end = (nextLast - 1) % items.length;
-        int newFirst = capacity - (items.length - nextFirst);
-        int newStart = (newFirst + 1) % capacity;
-
-        if (oldStart < end) {
-            System.arraycopy(items, oldStart, arr, oldStart, size);
-        } else if (oldStart == 0) {
-            System.arraycopy(items, oldStart, arr, oldStart, size);
-            nextFirst = newFirst;
         } else {
-            System.arraycopy(items, oldStart, arr, newStart, size - end - 1);
-            System.arraycopy(items, 0, arr, 0, end + 1);
-            nextFirst = newFirst;
+            if (start < nextLast) {
+                System.arraycopy(items, start, arr, 1, size);
+            } else {
+                System.arraycopy(items, start, arr, 1, items.length - start);
+                System.arraycopy(items, 0, arr, items.length - start + 1, size - items.length + start);
+            }
         }
-
+        nextFirst = 0;
+        nextLast = size + 1;
         items = arr;
     }
-
 
 }
