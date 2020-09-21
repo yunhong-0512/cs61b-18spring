@@ -37,9 +37,10 @@ public class RandomWorldDemo {
     private static TETile randomTile() {
         int tileNum = RANDOM.nextInt(3);
         switch (tileNum) {
-            case 0: return Tileset.WALL;
-            case 1: return Tileset.FLOWER;
-            case 2: return Tileset.NOTHING;
+            case 0: return Tileset.SAND;
+            case 1: return Tileset.MOUNTAIN;
+            case 2: return Tileset.FLOWER;
+            case 3: return Tileset.TREE;
             default: return Tileset.NOTHING;
         }
     }
