@@ -3,7 +3,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestBoard {
+
     @Test
+
     public void verifyImmutability() {
         int r = 2;
         int c = 2;
