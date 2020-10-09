@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Quick;
 
 public class MergeSort {
     /**
@@ -35,7 +36,17 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> res = new Queue<>();
+        if (items == null || items.size() == 0) {
+            return res;
+        }
+
+        for (Item i : items) {
+            Queue<Item> q = new Queue<>();
+            q.enqueue(i);
+            res.enqueue(q);
+        }
+        return res;
     }
 
     /**
@@ -54,13 +65,51 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+        if (q1 == null) {
+            return q2;
+        }
+
+        if (q2 == null) {
+            return q1;
+        }
+        Queue<Item> res = new Queue<>();
+        while (q1.size() != 0 || q2.size() != 0) {
+            res.enqueue(getMin(q1, q2));
+        }
+        return res;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        if (items == null || items.size() == 0) {
+            return new Queue<Item>();
+        }
+
+        Queue<Queue<Item>> res = makeSingleItemQueues(items);
+        while (res.size() > 1) {
+            res.enqueue(mergeSortedQueues(res.dequeue(), res.dequeue()));
+        }
+
+        return res.peek();
+    }
+
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<String>();
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");
+        students.enqueue("Ethan");
+        students.enqueue("Mike");
+        students.enqueue("Jhon");
+        students.enqueue("Evelyn");
+        Queue<String> sortedStu = MergeSort.mergeSort(students);
+        for (String str : students) {
+            System.out.print(str + " ");
+        }
+        System.out.println();
+        for (String str : sortedStu) {
+            System.out.print(str + " ");
+        }
     }
 }
