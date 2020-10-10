@@ -1,3 +1,8 @@
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Class for doing Radix sort
  *
@@ -16,8 +21,17 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        String[] sorted = new String[asciis.length];
+        int maxLen = 0;
+        for (int i = 0; i < asciis.length; i++) {
+            maxLen = maxLen > asciis[i].length() ? maxLen : asciis[i].length();
+            sorted[i] = asciis[i];
+        }
+
+        for (int i = maxLen - 1; i >= 0; i--) {
+            sortHelperLSD(sorted, i);
+        }
+        return sorted;
     }
 
     /**
@@ -28,6 +42,26 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
+        Queue<String>[] buckets = new Queue[256];
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new LinkedList<String>();
+        }
+        for (String str : asciis) {
+            if (str.length() > index) {
+                buckets[str.charAt(index)].offer(str);
+            } else {
+                buckets[0].offer(str);
+            }
+
+        }
+
+        int j = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            while (buckets[i].size() != 0) {
+                asciis[j] = buckets[i].poll();
+                j++;
+            }
+        }
         return;
     }
 
@@ -45,4 +79,14 @@ public class RadixSort {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
+
+    /*
+    public static void main(String[] args) {
+        String[] test = {"destructive", "method", "that", "changes", "the", "passed", "in", "array"};
+        String[] sorted = RadixSort.sort(test);
+        for (String str : sorted) {
+            System.out.print(str + " ");
+        }
+    }
+     */
 }
